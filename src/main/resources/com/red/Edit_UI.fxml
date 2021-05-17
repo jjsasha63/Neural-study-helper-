@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.pannable.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="720.0" prefWidth="1043.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #FFF;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.red.EditController">
+   <children>
+      <ImageView fx:id="main_icon2" fitHeight="40.0" fitWidth="44.0" layoutX="9.0" layoutY="24.0" onMouseClicked="#info_action2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/main_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="text_window2" fitHeight="40.0" fitWidth="33.0" layoutX="15.0" layoutY="242.0" onMouseClicked="#text_action2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/text.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="33.0" layoutX="13.0" layoutY="321.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/edit_active.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="student_window2" fitHeight="40.0" fitWidth="40.0" layoutX="11.0" layoutY="387.0" onMouseClicked="#student_action2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/student.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="next2" fitHeight="40.0" fitWidth="40.0" layoutX="9.0" layoutY="633.0" onMouseClicked="#next_action2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/next.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="anchor" layoutX="60.0" prefHeight="720.0" prefWidth="985.0" style="-fx-background-color: #E7E7E7;">
+         <children>
+            <AnchorPane prefHeight="33.0" prefWidth="985.0">
+               <children>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="946.0" layoutY="6.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/close.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="914.0" layoutY="6.0" onMouseClicked="#minimize" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/minimize.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <JFXComboBox fx:id="number_sentences" layoutX="215.0" layoutY="47.0" />
+            <JFXButton fx:id="load" layoutX="289.0" layoutY="47.0" onAction="#load_data" prefHeight="31.0" prefWidth="381.0" style="-fx-background-radius: 20; -fx-background-color: #4B6EAF;" text="Load" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></JFXButton>
+            <ScrollPane layoutY="87.0" prefHeight="633.0" prefWidth="985.0">
+               <content>
+                  <FlowPane fx:id="flow" prefHeight="-Infinity" prefWidth="983.0" visible="true" />
+               </content>
+            </ScrollPane>
+            <JFXButton layoutX="689.0" layoutY="47.0" onAction="#save_document" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: #4B6EAF; -fx-background-radius: 20;" text="Save Docx" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></JFXButton>
+            <JFXButton layoutX="837.0" layoutY="47.0" onAction="#save_pr_file" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: #4B6EAF; -fx-background-radius: 20;" text="Save App File" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></JFXButton>
+            <JFXToggleButton fx:id="edit_toggl" layoutX="81.0" layoutY="32.0" onAction="#edit_action" prefHeight="60.0" prefWidth="117.0" text="Delete" toggleColor="#8f0015" toggleLineColor="#c27889" unToggleColor="#009688" unToggleLineColor="#77c2bb" />
+            <Text layoutX="28.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Commit" />
+         </children></AnchorPane>
+   </children>
+</AnchorPane>

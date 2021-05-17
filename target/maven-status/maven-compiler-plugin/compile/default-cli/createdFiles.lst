@@ -1,0 +1,17 @@
+com\red\processing\FeatureVector.class
+com\red\PrimaryController.class
+com\red\preparation\CreateCorpus.class
+com\red\processing\LabelSentences.class
+com\red\processing\EuclideanDistance.class
+com\red\processing\Helper.class
+com\red\network\WordFrequencies.class
+com\red\importer\HTML.class
+com\red\network\WordFrequencies$1.class
+com\red\preparation\Corpus.class
+com\red\processing\Preprocessing.class
+com\red\GUIForSum.class
+com\red\App.class
+com\red\network\StanfordNLP.class
+com\red\processing\Classifier.class
+com\red\network\NeuralNetwork.class
+com\red\preparation\Entry.class
