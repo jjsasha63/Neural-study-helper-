@@ -1,3 +1,7 @@
 ImageView:hover{
     -fx-cursor: hand;
 }
+
+JFXButton:hover{
+    -fx-cursor: hand;
+}
