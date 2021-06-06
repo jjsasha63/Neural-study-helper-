@@ -3,13 +3,7 @@ package com.red.processing;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 
- * @author Tobias Ziegelmayer
- * @version 1.0.0
- * This class contains corpus function for the project TextSummarization
- *
- */
+//creates prep file
 public class Pre_file {
 	
 	List<Input_for_prep> inputs;
@@ -27,15 +21,7 @@ public class Pre_file {
 
 
 
-	/**
-	 * This method takes as arguments two integer values.
-	 * The first one is the start point for the method createCorpus
-	 * and the second one is the maximum border for the size of
-	 * the corpus.
-	 * The method generates a list of entries and add all information
-	 * from a text to an entry.
-	 * @return List<Entry>
-	 */
+	//form input options for file
 	public List<Input_for_prep> create_Pre_file(int pre_file_Type, int max){
 		List<Input_for_prep> inputs = new ArrayList<Input_for_prep>();
 		int lCounter = 0;
@@ -85,7 +71,7 @@ public class Pre_file {
 				inputforprep.setHeadlineTokens(stanfordHeadline.get(0));
 				inputforprep.setHeadlineLemma(stanfordHeadline.get(1));
 				Words wf = new Words();
-				inputforprep.setWords_text(wf.getTop10(inputforprep.getTextLemma()));
+				inputforprep.setWords_text(wf.get_top(inputforprep.getTextLemma()));
 				inputforprep.setWords_title(wf.getList(inputforprep.getHeadlineLemma()));
 
 				Label label = new Label(inputforprep);
@@ -102,10 +88,7 @@ public class Pre_file {
 		return inputs;
 	}
 
-	/**
-	 * This method creates a list of list of string from a csv file
-	 * @return List<List<String>>
-	 */
+	//read csv file
 	public static List < List < String > > readIn () {
 		Additional_func additionalfunc = new Additional_func();
 		String s = System.getProperty("user.dir");
@@ -114,24 +97,14 @@ public class Pre_file {
 
 		return lines;
 	}
-	/**
-	 * Constructor of a corpus.
-	 * The constructor takes as arguments two integer values.
-	 * The first one is the start point for the method createCorpus
-	 * and the second one is the maximum border for the size of
-	 * the corpus.
 
-	 */
+	//set borders for the file
 	public Pre_file(int pre_file_Type, int max) {
 		List<Input_for_prep> entries = this.create_Pre_file(pre_file_Type, max);
 		this.setInputs(entries);
 	}
 
-	/**
-	 * This method takes a path to a folder and a filename
-	 * to save the created feature vectors of a corpus as csv file
-	 * @param path
-	 */
+	//save to file
 	public void savePre_file(String path){
 		StringBuilder stringBuilder = new StringBuilder();
 		List<String> res = new ArrayList<>();

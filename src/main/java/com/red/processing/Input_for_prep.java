@@ -2,17 +2,7 @@ package com.red.processing;
 
 import java.util.List;
 
-/**
- * 
- * @author Tobias Ziegelmayer
- * @version 1.0.0
- * This class constructs an entry of a corpus.
- * The entry contains id, author, date, source url,
- * headlines, summary and text a.s.o.
- * It also use the class StanfordNLP for annotating 
- * the summary and the text.
- *
- */
+//create entry file
 public class Input_for_prep {
 	
 
@@ -146,21 +136,11 @@ public class Input_for_prep {
 	String date;
 	String url;
 
-	/**
-	 * This method create a string from some getter method of an entry
-	 * @return String
-	 */
 
-	/**
-	 * Emtpy constructor of an entry
-	 */
+
 	public Input_for_prep() {}
 
-	/**
-	 * Constructor of an entry
-	 * @param content
-	 * @param title
-	 */
+
 	public Input_for_prep(String content, String title){
 		Additional_func additionalfunc = new Additional_func();
 		SNLP snlp = new SNLP();
@@ -173,12 +153,16 @@ public class Input_for_prep {
 		this.setHeadlineTokens(stanfordTitle.get(0));
 		this.setHeadlineLemma(stanfordTitle.get(1));
 		Words words = new Words();
-		this.setWords_text(words.getTop10(this.getTextLemma()));
+		this.setWords_text(words.get_top(this.getTextLemma()));
 		this.setWords_title(words.getList(this.getHeadlineLemma()));
 
 		List<Vectors> vectors = additionalfunc.create_vectors(this);
 		this.setFeatureVectors(vectors);
 	}
+
+
+	//input for prep file
+
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(this.getId()+", ");

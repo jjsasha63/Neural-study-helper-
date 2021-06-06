@@ -11,75 +11,67 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="720.0" prefWidth="1043.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #FFF;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.red.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="736.0" prefWidth="1061.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #23272B;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.red.Controller">
    <children>
-      <ImageView fx:id="main_icon" fitHeight="40.0" fitWidth="44.0" layoutX="9.0" layoutY="24.0" onMouseClicked="#info_action1" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/main_icon.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="text_window" fitHeight="40.0" fitWidth="33.0" layoutX="15.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/text_active.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="edit_window" fitHeight="40.0" fitWidth="33.0" layoutX="13.0" layoutY="321.0" onMouseClicked="#edit_action1" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/edit.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="student_window" fitHeight="40.0" fitWidth="40.0" layoutX="11.0" layoutY="387.0" onMouseClicked="#student_action1" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/student.png" />
-         </image>
-      </ImageView>
-      <AnchorPane layoutX="60.0" prefHeight="720.0" prefWidth="985.0" style="-fx-background-color: #E7E7E7;">
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="716.0" prefWidth="1041.0" style="-fx-background-color: #FFF; -fx-background-radius: 20; -fx-border-radius: 20;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
-            <AnchorPane prefHeight="33.0" prefWidth="985.0">
+            <ImageView fx:id="next" fitHeight="40.0" fitWidth="40.0" layoutX="9.0" layoutY="633.0" onMouseClicked="#next_action1" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/next1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="main_icon" fitHeight="40.0" fitWidth="44.0" layoutX="9.0" layoutY="24.0" onMouseClicked="#info_action1" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/main.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="text_window" fitHeight="40.0" fitWidth="33.0" layoutX="15.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/text_active1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="edit_window" fitHeight="40.0" fitWidth="33.0" layoutX="13.0" layoutY="321.0" onMouseClicked="#edit_action1" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/edit.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="student_window" fitHeight="40.0" fitWidth="40.0" layoutX="11.0" layoutY="387.0" onMouseClicked="#student_action1" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/student.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="999.0" layoutY="6.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/close.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="968.0" layoutY="6.0" onMouseClicked="#minimize" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/minimize.png" />
+               </image>
+            </ImageView>
+            <JFXTextField fx:id="text_title" focusColor="WHITE" layoutX="89.0" layoutY="196.0" prefHeight="36.0" prefWidth="953.0" style="-fx-background-color: #FFF; -fx-border-color: #3A4147; -fx-border-radius: 20 0 0 20;" unFocusColor="WHITE" />
+            <Text fill="#3c3b41" layoutX="232.0" layoutY="187.0" stroke="#3c3b41" strokeType="INSIDE" strokeWidth="2.0" text="TITLE">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+            <Text fill="#3c3b41" layoutX="245.0" layoutY="272.0" stroke="#3c3b41" strokeType="INSIDE" strokeWidth="2.0" text="TOPIC" wrappingWidth="81.26171875">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+            <JFXTextArea fx:id="text_main" focusColor="WHITE" layoutX="89.0" layoutY="281.0" prefHeight="411.0" prefWidth="953.0" style="-fx-background-color: #FFF; -fx-border-color: #3A4147; -fx-border-radius: 20 0 0 20; -fx-background-radius: 20 0 0 20;" unFocusColor="WHITE" />
+            <AnchorPane layoutX="91.0" prefHeight="123.0" prefWidth="863.0" style="-fx-background-color: #3C3B41; -fx-border-color: #3C3B41; -fx-border-radius: 0 0 20 20; -fx-background-radius: 0 0 20 20;">
                <children>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="946.0" layoutY="6.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/close.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="914.0" layoutY="6.0" onMouseClicked="#minimize" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/minimize.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="anch" layoutX="39.0" layoutY="38.0" prefHeight="183.0" prefWidth="908.0" style="-fx-background-color: #4B6EAF; -fx-background-radius: 0 0 20 20;">
-               <children>
-                  <Text fill="WHITE" layoutX="55.0" layoutY="60.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" text="STUDY PREPARATOR">
+                  <Text fill="WHITE" layoutX="177.0" layoutY="87.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" text="Studier">
                      <font>
-                        <Font size="43.0" />
-                     </font>
-                  </Text>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="36.0" layoutY="253.0" prefHeight="438.0" prefWidth="949.0" style="-fx-background-color: #FFF; -fx-background-radius: 20 0 0 20;">
-               <children>
-                  <JFXTextArea fx:id="text_main" focusColor="WHITE" layoutX="138.0" layoutY="85.0" prefHeight="338.0" prefWidth="811.0" style="-fx-background-color: #FFF; -fx-border-color: #E7E7E7; -fx-border-radius: 20 0 0 20; -fx-background-radius: 20 0 0 20;" unFocusColor="WHITE" />
-                  <JFXTextField fx:id="text_title" focusColor="WHITE" layoutX="138.0" layoutY="23.0" prefHeight="36.0" prefWidth="811.0" style="-fx-background-color: #FFF; -fx-border-color: E7E7E7; -fx-border-radius: 20 0 0 20;" unFocusColor="WHITE" />
-                  <Text layoutX="36.0" layoutY="52.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" text="TITLE">
-                     <font>
-                        <Font size="28.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="27.0" layoutY="115.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" text="TOPIC" wrappingWidth="81.26171875">
-                     <font>
-                        <Font size="28.0" />
+                        <Font size="64.0" />
                      </font>
                   </Text>
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
-      <ImageView fx:id="next" fitHeight="40.0" fitWidth="40.0" layoutX="9.0" layoutY="633.0" onMouseClicked="#next_action1" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/next.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

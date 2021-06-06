@@ -5,6 +5,7 @@ import com.red.processing.Encrypt_Decrypt;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -25,6 +26,7 @@ public class StudentController {
     public static int[] num_answ;
     public static ArrayList<String>[] answers;
     public static ArrayList<TextField> textFields;
+    public ScrollPane scroll;
     double x,y;
 
     public void info_action3(MouseEvent mouseEvent) throws IOException {
@@ -65,7 +67,7 @@ public class StudentController {
         ArrayList<String>[] answers_final = new ArrayList[num];
         Line line = new Line();
         line.setEndX(900);
-        line.setStrokeWidth(190);
+        line.setStrokeWidth(170);
         int mark = 0;
         for (int i = 0;i<textFields.size();i++) {
             answers_final[i] = new ArrayList<>();
@@ -86,7 +88,7 @@ public class StudentController {
             flow.setStyle("-fx-background-color:#c27889");
             line.setStroke(Paint.valueOf("#c27889"));
         }
-        Label label = new Label("   Your result: " + mark + "/" + num);
+        Label label = new Label("  Your result: " + mark + "/" + num);
         label.setStyle("-fx-font-size: 120");
         flow.getChildren().add(line);
         flow.getChildren().add(label);
@@ -97,10 +99,12 @@ public class StudentController {
 
     public void load_test(ActionEvent event) throws CryptoException, IOException {
         Random rand = new Random();
+        scroll.setFitToWidth(true);
         ArrayList<Line> lines = new ArrayList<>();
         ArrayList<Integer> temp_num = new ArrayList<>();
         ArrayList<String> questions = new ArrayList<>();
         ArrayList<String> temp_answers = new ArrayList<>();
+        ArrayList<Text> texts = new ArrayList<>();
         textFields = new ArrayList<>();
         Additional_func additional_func = new Additional_func();
         File enc_file = additional_func.select_file();
@@ -127,20 +131,22 @@ public class StudentController {
             dec_file.delete();
         for(int i =0;i<num*2;i++){
             lines.add(new Line());
-            lines.get(i).setEndX(982);
-            lines.get(i).setStroke(Paint.valueOf("#F4F4F4"));
+            lines.get(i).setEndX(1600);
+            lines.get(i).setStroke(Paint.valueOf("#FFF"));
             lines.get(i).setStrokeWidth(10);
         }
         for(int j = 0;j<total;j++) temp_num.add(j);
         Collections.shuffle(temp_num);
         for (int j=0; j<num; j++) num_answ[j] = temp_num.get(j);
         flow.getChildren().clear();
-        flow.setStyle("-fx-background-color: #F4F4F4; ");
+        flow.setStyle("-fx-background-color: #FFF; -fx-background-radius: 20; -fx-border-radius: 20;");
         for (int i = 0; i < num; i++) {
             textFields.add(new TextField());
-            textFields.get(i).setStyle("-fx-background-color:#4B6EAF; -fx-background-radius: 20;");
+            textFields.get(i).setStyle("-fx-background-color: #3C3B41; -fx-background-radius: 20; -fx-text-fill: #fcf6f6");
             flow.getChildren().add(lines.get(i+num));
-            flow.getChildren().add(new Text("№_" + (i+1) + " " + questions.get(num_answ[i])));
+            texts.add(new Text("№_" + (i+1) + " " + questions.get(num_answ[i])));
+            texts.get(i).setWrappingWidth(960);
+            flow.getChildren().add(texts.get(i));
             flow.getChildren().add(lines.get(i));
             flow.getChildren().add(textFields.get(i));
         }

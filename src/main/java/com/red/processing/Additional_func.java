@@ -14,43 +14,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * 
- * @author Tobias Ziegelmayer
- * @version 1.0.0
- * This class contains helper functions for the project TextSummarization
- *
- */
+//additional func
 public class Additional_func {
 
-	/**
-	 * This method reads a filename or filepath and returns a list of strings
-	 * with the content of the file
-	 * @param name
-	 * @return List<String>
-	 */
 
 
-	/**
-	 * This method takes a filename or filepath and string, which has to write
-	 * to the file
-	 * @param name
-	 * @param text
-	 */
+	//write text to file
 	public static void write_file_byte(String name, String text) {
 		Writer writer = null;
-
 		try {
 			writer = new BufferedWriter(new OutputStreamWriter(
 					new FileOutputStream(name), "utf-8"));
 			writer.write(text);
 		} catch (IOException ex) {
-			// Report
 		} finally {
 			try {writer.close();} catch (Exception ex) {}
 		}
 	}
 
+	//get list from file
 	public static List<String> read_s_file(String name) {
 		try {
 			return Files.readAllLines(
@@ -61,13 +43,7 @@ public class Additional_func {
 		return null;
 	}
 
-	/**
-	 * This method takes a filename or filepath and a string as separator and 
-	 * an optional String to delete in a line as arguments. The method 
-	 * returns a list of list of string as row and columns of a csv file.
-	 * @param name
-	 * @return List<List<String>> 
-	 */
+	//read CSV file for network
 	public List<List<String>> readCSVFile (String name) {
 		List<List<String>> lines = new ArrayList<>();
         String line = "";
@@ -83,11 +59,7 @@ public class Additional_func {
         return lines;
 	}
 
-	/**
-	 * This method takes a filename or filepath and a list of string, which has to write
-	 * to the file
-	 * @param name, content
-	 */
+	//write list to file
 	public static void write_b_file(String name, List<String> lines) {
 		try ( BufferedWriter bufferedWriter =
 					  Files.newBufferedWriter(
@@ -105,12 +77,7 @@ public class Additional_func {
 		}
 		catch ( IOException ioe ) { ioe.printStackTrace(); }
 	}
-	/**
-	 * This method takes a array of strings. In each string the textquotecharacter '"' 
-	 * will be replaced through an empty string. 
-	 * @param line
-	 * @return String [] 
-	 */
+
 	public String [] clear_quotes(String [] line) {
 		String [] res = new String [line.length];
 		for (int i = 0; i < line.length; i++) {
@@ -123,13 +90,7 @@ public class Additional_func {
 
 
 
-	/**
-	 * This method takes two lists of strings as parameter and counts how many words
-	 * from the input list are in the words list
-	 * @param input
-	 * @param words
-	 * @return double
-	 */
+	// check the amount of equal words
 	public static double words_per_sentence(List<String> input, List<String> words){
 		double res = 0;
 
@@ -149,19 +110,21 @@ public class Additional_func {
 	}
 
 
-	public File select_dir(){
-		DirectoryChooser directoryChooser = new DirectoryChooser();
-		directoryChooser.setInitialDirectory(new File("C:\\Users\\jjsas\\OneDrive\\Рабочий стол\\test"));
+	public File select_dir(String type,String type1,String name){
+//		DirectoryChooser directoryChooser = new DirectoryChooser();
+//		directoryChooser.setInitialDirectory(new File("C:\\Users\\jjsas\\OneDrive\\Рабочий стол\\test"));
 		Stage stage = new Stage();
-		File selectedDirectory = directoryChooser.showDialog(stage);
-		return selectedDirectory;
+//		File selectedDirectory = directoryChooser.showDialog(stage);
+//		return selectedDirectory;
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle(name);
+		FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter(type,type1);
+		fileChooser.getExtensionFilters().add(extensionFilter);
+		File file = fileChooser.showSaveDialog(stage);
+		return file;
 	}
-	/**
-	 * This method takes an entry as parameter and creates a list of feature vectors
-	 * for all sentences in the text from the entry
-	 * @param inputforprep
-	 * @return List<FeatureVector>
-	 */
+
+	//form list of parameters
 	public List<Vectors> create_vectors(Input_for_prep inputforprep) {
 		int cntr = 0;
 		List<Vectors> vectors = new ArrayList<>();

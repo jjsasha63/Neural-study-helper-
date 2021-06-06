@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * @author Tobias Ziegelmayer
- * @version 1.0.0
- * This class contains functions for calculating the label of sentences for the project TextSummarization
- */
+//creates labels of sentences
 public class Label {
 
     Input_for_prep inputforprep;
@@ -21,21 +17,13 @@ public class Label {
         this.inputforprep = inputforprep;
     }
 
-    /**
-     * This constructor creates a instance of LabelSentences with an entry as class variable
-     * @param inputforprep
-     */
+
     public Label(Input_for_prep inputforprep){
         this.setInput(inputforprep);
     }
 
 
-    /**
-     * This method takes as parameter a list of double values and returns
-     * the mean of the double values
-     * @param distances
-     * @return double
-     */
+   //get avg sum
     public double getMean(List<Double> distances){
         double sum = 0;
         for (Double aDouble : distances){
@@ -45,16 +33,7 @@ public class Label {
         return avg;
     }
 
-    /**
-     * This method takes a list of doubles and a single double value as parameter
-     * and creates a list of integer values.
-     * The integer values are the labels for the sentences of an entry text.
-     * If the integer is equal 1, then the sentence will be part of the summary,
-     * else if the integer is equal 0, then the sentence will be no part of the summary.
-     * @param distances
-     * @param mean
-     * @return List<Integer>
-     */
+    //create output labels
     public List<Integer> getLabels (List<Double> distances, double mean){
         List<Integer> res = new ArrayList<>();
         for (Double aDouble : distances){
@@ -68,11 +47,7 @@ public class Label {
         return res;
     }
 
-    /**
-     * This method creates a list of double values as euclidean distance for each sentence of a text based on
-     * the existing summary from the origin corpus.
-     * @return List<Double>
-     */
+   // gets distances from file
     public List<Double> getDistances (){
         Input_for_prep inputforprep = this.getInput();
         List<Double> result = new ArrayList<>();

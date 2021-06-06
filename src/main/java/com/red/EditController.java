@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
@@ -34,6 +35,7 @@ public class EditController {
     static public ArrayList<Boolean> hold_sentences;
     static ArrayList<String>[] words, answers;
     public JFXComboBox number_sentences;
+    public ScrollPane scroll;
     double x,y;
 
 
@@ -57,8 +59,10 @@ public class EditController {
         ArrayList<String> res = Controller.arr_result;
         List<ToggleButton>[] buttonlist = new ArrayList[res.size()];
         List<ToggleButton> sentence = new ArrayList<>();
+        scroll.setFitToWidth(true);
         words = new ArrayList[res.size()];
         answers = new ArrayList[res.size()];
+        flow.setStyle("-fx-background-color: #FFF; -fx-background-radius: 20; -fx-border-radius: 20; ");
         ArrayList<Line> lines = new ArrayList<>();
         String temp = new String();
         hold_sentences = new ArrayList<>();
@@ -93,6 +97,7 @@ public class EditController {
        for(ArrayList<String> a:words){
           sentence.add(new ToggleButton("№-"+(i+1)));
           sentence.get(i).setStyle("-fx-background-color:#009688; -fx-background-radius: 20;");
+           sentence.get(i).setTextFill(Color.WHITE);
           flow.getChildren().add(sentence.get(i));
           final int temp_index = i;
           final ToggleButton temp_butt = sentence.get(i);
@@ -102,9 +107,11 @@ public class EditController {
               public void handle(ActionEvent event) {
                   if (temp_butt.isSelected()) {
                       temp_butt.setStyle("-fx-background-color:#8f0015; -fx-background-radius: 20;");
+                      temp_butt.setTextFill(Color.WHITE);
                       hold_sentences.set(temp_index,false);
                   } else {
                       temp_butt.setStyle("-fx-background-color:#009688; -fx-background-radius: 20;");
+                      temp_butt.setTextFill(Color.WHITE);
                       hold_sentences.set(temp_index,true);
 
                   }
@@ -114,7 +121,8 @@ public class EditController {
            for(String b:a){
 
              buttonlist[i].add(new ToggleButton(b));
-             buttonlist[i].get(j).setStyle("-fx-background-color:#4B6EAF; -fx-background-radius: 20;");
+             buttonlist[i].get(j).setStyle("-fx-background-color: #7B8084; -fx-background-radius: 20;");
+             buttonlist[i].get(j).setTextFill(Color.WHITE);
              final int temp_ind = j;
              final ToggleButton temp_button = buttonlist[i].get(j);
              answers[i].add("");
@@ -124,11 +132,13 @@ public class EditController {
                       if (!state) {
                           if (temp_button.isSelected()) {
                               temp_button.setStyle("-fx-background-color:#77c2bb; -fx-background-radius: 20;");
+                              temp_button.setTextFill(Color.WHITE);
                               temp_button.setText("________");
                               words[temp_index].set(temp_ind,"__________");
                               answers[temp_index].set(temp_ind,b);
                           } else {
-                              temp_button.setStyle("-fx-background-color:#4B6EAF; -fx-background-radius: 20;");
+                              temp_button.setStyle("-fx-background-color: #7B8084; -fx-background-radius: 20;");
+                              temp_button.setTextFill(Color.WHITE);
                               temp_button.setText(b);
                               words[temp_index].set(temp_ind,b);
                               answers[temp_index].set(temp_ind,"");
@@ -137,10 +147,12 @@ public class EditController {
                       else {
                           if (temp_button.isSelected()) {
                               temp_button.setStyle("-fx-background-color:#c27889; -fx-background-radius: 20;");
+                              temp_button.setTextFill(Color.WHITE);
                               temp_button.setText("");
                               words[temp_index].set(temp_ind,"");
                           } else {
-                              temp_button.setStyle("-fx-background-color:#4B6EAF; -fx-background-radius: 20;");
+                              temp_button.setStyle("-fx-background-color: #7B8084; -fx-background-radius: 20;");
+                              temp_button.setTextFill(Color.WHITE);
                               temp_button.setText(b);
                               words[temp_index].set(temp_ind,b);
                           }
@@ -151,8 +163,8 @@ public class EditController {
            }
            flow.getChildren().addAll(buttonlist[i]);
            lines.add(new Line());
-           lines.get(i).setEndX(982);
-           lines.get(i).setStroke(Paint.valueOf("#F4F4F4"));
+           lines.get(i).setEndX(900);
+           lines.get(i).setStroke(Paint.valueOf("#FFF"));
            lines.get(i).setStrokeWidth(10);
            flow.getChildren().add(lines.get(i));
            i++;
@@ -165,12 +177,12 @@ public class EditController {
     public void save_document(ActionEvent actionEvent) throws IOException {
         Additional_func additional_func = new Additional_func();
         ArrayList<String>[] text = words;
-        String path = additional_func.select_dir().getAbsolutePath();
+     //   String path = additional_func.select_dir().getAbsolutePath();
         String temp = new String();
         XWPFDocument document = new XWPFDocument();
         XWPFDocument document_answ = new XWPFDocument();
-        FileOutputStream out = new FileOutputStream(path + "\\Questions.docx");
-        FileOutputStream out_answ = new FileOutputStream(path + "\\Answers.docx");
+        FileOutputStream out = new FileOutputStream(additional_func.select_dir("DOCX files (*.docx)","*.docx","Save questions file"));
+        FileOutputStream out_answ = new FileOutputStream(additional_func.select_dir("DOCX files (*.docx)","*.docx","Save answers file"));
         XWPFParagraph paragraph = document.createParagraph();
         XWPFParagraph paragraph_answ = document_answ.createParagraph();
         XWPFRun run = paragraph.createRun();
@@ -189,7 +201,7 @@ public class EditController {
                 run.setText("№-" + (i+1) + " ");
                 for (int j = 0; j < text[i].size(); j++) {
                     run.setText(text[i].get(j) + " ");
-                    run_answ.setText(answers[i].get(j) + " - ");
+                    run_answ.setText(answers[i].get(j) + "/");
                 }
                 run_answ.addBreak();
                 run_answ.addBreak();
@@ -212,11 +224,11 @@ public class EditController {
 
     public void save_pr_file(ActionEvent actionEvent) throws IOException, CryptoException {
         Additional_func additional_func = new Additional_func();
-        String path = additional_func.select_dir().getAbsolutePath();
+     //   String path = additional_func.select_dir().getAbsolutePath();
         ArrayList<String>[] text = words;
-        File dec_file = new File(path + "\\Auto_test.prp");
+        File enc_file = additional_func.select_dir("PRP files (*.prp)","*.prp","Save app file");
+        File dec_file = new File(enc_file.getAbsolutePath().replaceAll(enc_file.getName(),"") + "\\Auto_test.prp");
         FileWriter fileWriter = new FileWriter(dec_file);
-        File enc_file = new File(path + "\\Auto_test_enc.prp");
         int total = 0 , num = number_sentences.getSelectionModel().getSelectedIndex() + 1;
         for(Boolean a:hold_sentences){
             if(a) total++;

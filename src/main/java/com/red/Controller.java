@@ -2,6 +2,7 @@ package com.red;
 
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import edu.stanford.nlp.process.WordToSentenceProcessor;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import com.red.processing.Classifier;
@@ -9,7 +10,9 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.text.BreakIterator;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Controller {
 
@@ -43,6 +46,7 @@ public class Controller {
     }
 
     public void main_text_pr(String type) throws IOException, InterruptedException {
+        BreakIterator breakIterator = BreakIterator.getSentenceInstance();
         arr_result  = new ArrayList<>();
         Classifier classifier = new Classifier();
         String result = new String(), res = new String();
@@ -84,11 +88,17 @@ public class Controller {
         result = result.replaceAll("\n","");
 
 
-
-        String[] n_arr = result.split("\\.");
+//        breakIterator.setText(result);
+//        int i = 0;
+//        while (breakIterator.next() != BreakIterator.DONE){
+//           arr_result.add(result.substring(i, breakIterator.current()));
+//           i = breakIterator.current();
+//        }
+        String[] n_arr = result.split("\\.|\\!|\\?");
         for(int i=0;i<n_arr.length-1;i++){
             arr_result.add(n_arr[i]);
         }
+
 
 
 

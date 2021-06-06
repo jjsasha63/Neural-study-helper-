@@ -1,10 +1,6 @@
 package com.red.processing;
 
-/**
- * @author Tobias Ziegelmayer
- * @version 1.0.0
- * This class contains functions for creating the feature vector for the project TextSummarization
- */
+//creates vectors of options
 public class Vectors {
 
 
@@ -54,10 +50,7 @@ public class Vectors {
     double Title_word;
 
 
-    /**
-     * This method returns an array of double values which represents a feature vector
-     * @return double []
-     */
+   //get vector of all options
     public double[] getVector() {
         double []vector = new double[5];
         vector[0] = this.getSentence_rel();
@@ -67,15 +60,8 @@ public class Vectors {
         vector[4] = this.getTitle_word();
         return vector;
     }
-    /**
-     * This constructor takes five double values as argument and set these values as properties
-     * for a feature vector.
-     * @param sentencePos
-     * @param sentence_lenght
-     * @param isFirst
-     * @param nrThematic
-     * @param nrHead
-     */
+
+    //form properties
     public Vectors(double sentencePos, double sentence_lenght, double isFirst, double nrThematic, double nrHead){
         this.setSentence_rel(sentencePos);
         this.setSentence_lenght(sentence_lenght);
@@ -86,10 +72,7 @@ public class Vectors {
         this.setTheme_word(temp);
     }
 
-    /**
-     * This method returns a string from a feature vector
-     * @return String
-     */
+    //vector to string
     public String toString (){
         double [] vector = this.getVector();
         StringBuilder sb = new StringBuilder();

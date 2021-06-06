@@ -15,32 +15,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-/**
- * @author Tobias Ziegelmayer & Simon Werner
- * @version 1.0.0
- * This class contains functions for Classification of Sentences, based on the trained Neural Network
- */
+
+
+//sentence classification based on the result from neural network
 public class Classifier {
 
-    /**
-     * This method takes as parameter a string and creates a MultiLayerNetwork from a stored network.
-     * @param path
-     * @return MultiLayerNetwork
-     * @throws IOException
-     */
+    //loads existing network
     public MultiLayerNetwork loadNN(String path) throws IOException {
         return ModelSerializer.restoreMultiLayerNetwork(path);
     }
 
-
-
-    /**
-     * This method takes two strings as parameter and creates from the input
-     * strings a filepath.
-     * @param headline
-     * @param type
-     * @return String
-     */
+   //form path
     private static String createPath (String headline, String type){
         headline = headline.replaceAll("[^A-Za-z0-9]", " ");
         headline = headline.replaceAll(" +", " ");
@@ -59,18 +44,7 @@ public class Classifier {
         return sb.toString();
     }
 
-    /**
-     * This method takes as parameter an integer, a string and an entry and creates a
-     * 2-dimensional array of double values.
-     * The double values are the result of the output layer of the use of the trained neuroal
-     * network.
-     * @param b_size
-     * @param Vectors_path
-     * @param inputforprep
-     * @return double [][]
-     * @throws IOException
-     * @throws InterruptedException
-     */
+    //get network result into arrays
     public static double [][] Create_marks(int b_size, String Vectors_path, Input_for_prep inputforprep) throws IOException, InterruptedException{
         double [][] res = new double[b_size][2];
         int skip_num = 0;
@@ -92,11 +66,7 @@ public class Classifier {
         return res;
     }
 
-    /**
-     * This method takes a path to a folder and a filename
-     * to save the created feature vectors of a corpus as csv file
-     * @param path
-     */
+   //create temp csv files
     public void save_Pre_file(String path, Input_for_prep inputforprep){
 
         List<String> res = new ArrayList<>();
@@ -121,16 +91,7 @@ public class Classifier {
         additionalfunc.write_b_file(path, res);
     }
 
-    /**
-     * This method takes as parameter two string and creates a string as summary from
-     * the input strings.
-     * The output will generated from a trained neural network.
-     * @param text
-     * @param title
-     * @return String
-     * @throws IOException
-     * @throws InterruptedException
-     */
+    // step by step sentence classification
     public String sum(String text, String title) throws IOException, InterruptedException {
         Input_for_prep inputforprep = new Input_for_prep(text, title);
         String File_path = "target/classes/temp/"+createPath(title, "csv");
@@ -148,7 +109,7 @@ public class Classifier {
         List<List<String>> tokens = inputforprep.getTextTokens();
         int count = 0;
         for (int i = 0; i < marks.length; i++){
-            if (marks[i][0] >= 0.45){
+            if (marks[i][0] >= 0.5){
                 count++;
                 StringBuilder builder1 = new StringBuilder();
                 List<String> temp = tokens.get(i);

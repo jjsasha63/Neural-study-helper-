@@ -36,20 +36,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * @author Simon Werner and Tobias Ziegelmayer
- * @version 1.0.0
- * This class contains a main method that creates, trains, evaluates and saves a neural network with the given parameters
- */
+//Network--config--train
 
 public class Network extends CreatePrep_file {
-    private static final int NUMFEATUREVECTORSIZE = 5;
-    private static final int NUMHIDDENNODES = 10;
-    private static final int NUMFINALCLASSES = 2;
-    private static final int HIDDEN_LAYER_CONT = 10;
+    private static final int PROPERTIES_NUMBER = 5;
+    private static final int HIDDEN_SIZE = 10;
+    private static final int HIDDEN_LAYER_SIZE = 10;
     private static final int ITERATIONS = 10000;
-//    private static final String HOME_PATH = "/home/kenobi/Repos/GitHub/TextSummarization/target/";
-    private static final String HOME_PATH = "/home/ziegelmayer/TextSummarization/target/";
+    private static final int OUTPUT_SIZE = 2;
+
+    private static final String HOME_PATH = "\\src\\main\\resources\\";
 
 
     static HashMap<String, List<Double>> results = new HashMap<>();
@@ -73,13 +69,6 @@ public class Network extends CreatePrep_file {
                 System.out.println("===================\n"+estimatedTime+"\n=================");
             }
         }
-
-
-//        long startTime = System.currentTimeMillis();
-//        runNetwork("IDENTITY", WeightInit.XAVIER_FAN_IN);
-//        long estimatedTime = System.currentTimeMillis() - startTime;
-//        double minTime = (estimatedTime / 1000 ) / 60;
-//        System.out.println("===================\n"+minTime+"\n=================");
         writeResultsToFile(results);
 
     }
@@ -101,26 +90,18 @@ public class Network extends CreatePrep_file {
 
     public static void runNetwork (String activation, WeightInit weightInit) throws IOException, InterruptedException {
         int batchSize = 1000;
-//        final String filenameTrain  = new ClassPathResource("trainingsSetSmall.csv").getFile().getPath();
-//        final String filenameTest  = new ClassPathResource("testSetSmall.csv").getFile().getPath();
-
-        final String filenameTrain  = new ClassPathResource("trainingsSet.csv").getFile().getPath();
+        final String filenameTrain  = new ClassPathResource("trainSet.csv").getFile().getPath();
         final String filenameTest  = new ClassPathResource("testSet.csv").getFile().getPath();
-
         RecordReader rr = new CSVRecordReader();
         rr.initialize(new FileSplit(new File(filenameTrain)));
-        DataSetIterator trainIter = new RecordReaderDataSetIterator(rr,batchSize,0,NUMFINALCLASSES);
+        DataSetIterator trainIter = new RecordReaderDataSetIterator(rr,batchSize,0,OUTPUT_SIZE);
         RecordReader rrTest = new CSVRecordReader();
         rrTest.initialize(new FileSplit(new File(filenameTest)));
-        DataSetIterator testIter = new RecordReaderDataSetIterator(rrTest,batchSize,0,NUMFINALCLASSES);
-//        MultiLayerNetwork net = new MultiLayerNetwork(getFeedForewardConf(activation, weightInit));
+        DataSetIterator testIter = new RecordReaderDataSetIterator(rrTest,batchSize,0,+OUTPUT_SIZE);
         MultiLayerNetwork net = new MultiLayerNetwork(getRecurrentConf(activation, weightInit));
-
         net.init();
-        // add an listener which outputs the error every 100 parameter updates
         net.setListeners(new ScoreIterationListener(ITERATIONS / 10));
-        // C&P from GravesLSTMCharModellingExample
-        // Print the number of parameters in the network (and for each layer)
+       //get layer info
         Layer[] layers = net.getLayers();
         int totalNumParams = 0;
         for (int i = 0; i < layers.length; i++) {
@@ -129,76 +110,37 @@ public class Network extends CreatePrep_file {
             totalNumParams += nParams;
         }
         System.out.println("Total number of network parameters: " + totalNumParams);
-
-        // start UI
-        // use: http://localhost:9000/train
-//        startUI(net);
-
-        // here the actual learning takes place
-        net.fit(trainIter);
-        // create output for every training sample
+        net.fit(trainIter); // train init
         System.out.println("Evaluate model....");
         Evaluation eval = new Evaluation(2);
-        while(testIter.hasNext()){
+        while(testIter.hasNext()){ //hold info for eval
             DataSet t = testIter.next();
             INDArray features = t.getFeatureMatrix();
             INDArray lables = t.getLabels();
             INDArray predicted = net.output(features,false);
-            eval.eval(lables, predicted);
+            eval.eval(lables, predicted); // eval
         }
-        //Print the evaluation statistics
         System.out.println(eval.stats());
         Additional_func additionalfunc = new Additional_func();
         additionalfunc.write_file_byte(HOME_PATH+"model/stats/"+weightInit.name()+"_"+activation+"_RNN.txt", eval.stats());
-        if (eval.f1() > 0.0){
+        if (eval.f1() > 0.8){
             List<Double> temp = new ArrayList<>();
             temp.add(eval.f1());
             temp.add(eval.precision());
             temp.add(eval.recall());
             results.put(activation+"  "+weightInit.name(), temp);
         }
-        //Save the network
-        File saveLocation = new File(HOME_PATH+"trainedNetwork.zip");
+        File saveLocation = new File(HOME_PATH+"Network.zip"); //save
         boolean saveUpdater = true;
         ModelSerializer.writeModel(net,saveLocation,saveUpdater);
     }
 
-    private static void startUI (MultiLayerNetwork net){
+    private static void init_train (MultiLayerNetwork net){
         UIServer uiServer = UIServer.getInstance();
         StatsStorage statsStorage = new InMemoryStatsStorage();
         int listenerFrequency = 1;
         net.setListeners(new StatsListener(statsStorage, listenerFrequency));
         uiServer.attach(statsStorage);
-    }
-
-    private static MultiLayerConfiguration getFeedForewardConf (String activation, WeightInit weightInit){
-        MultiLayerConfiguration configuration = new NeuralNetConfiguration.Builder()
-                .seed(123)
-                .iterations(ITERATIONS)
-                .activation(Activation.fromString(activation))
-                .weightInit(weightInit)
-                .learningRate(0.001)
-                .regularization(true).l2(1e-4)
-                .list()
-                .layer(0, new DenseLayer.Builder().nIn(NUMFEATUREVECTORSIZE).nOut(NUMHIDDENNODES)
-                        .build())
-                .layer(1, new DenseLayer.Builder().nIn(NUMHIDDENNODES).nOut(NUMHIDDENNODES)
-                        .build())
-                .layer(2, new DenseLayer.Builder().nIn(NUMHIDDENNODES).nOut(NUMHIDDENNODES)
-                        .build())
-                .layer(3, new DenseLayer.Builder().nIn(NUMHIDDENNODES).nOut(NUMHIDDENNODES)
-                        .build())
-                .layer(4, new DenseLayer.Builder().nIn(NUMHIDDENNODES).nOut(NUMHIDDENNODES)
-                        .build())
-                .layer(5, new DenseLayer.Builder().nIn(NUMHIDDENNODES).nOut(NUMHIDDENNODES)
-                        .build())
-                .layer(6, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
-                        .activation(Activation.SOFTMAX)
-                        .nIn(NUMHIDDENNODES).nOut(NUMFINALCLASSES).build())
-                .backprop(true).pretrain(false)
-                .build();
-
-        return configuration;
     }
 
     private static MultiLayerConfiguration getRecurrentConf (String activation, WeightInit weightInit){
@@ -214,32 +156,25 @@ public class Network extends CreatePrep_file {
 
         ListBuilder listBuilder = builder.list();
 
-        // first difference, for rnns we need to use GravesLSTM.Builder
-        for (int i = 0; i < HIDDEN_LAYER_CONT; i++) {
+      //hidden layers
+        for (int i = 0; i < HIDDEN_LAYER_SIZE; i++) {
             GravesLSTM.Builder hiddenLayerBuilder = new GravesLSTM.Builder();
-            hiddenLayerBuilder.nIn(i == 0 ? NUMFEATUREVECTORSIZE : NUMHIDDENNODES);
-            hiddenLayerBuilder.nOut(NUMHIDDENNODES);
-            // adopted activation function from GravesLSTMCharModellingExample
-            // seems to work well with RNNs
+            hiddenLayerBuilder.nIn(i == 0 ? PROPERTIES_NUMBER : HIDDEN_SIZE);
+            hiddenLayerBuilder.nOut(HIDDEN_SIZE);
             hiddenLayerBuilder.activation(Activation.fromString(activation));
             listBuilder.layer(i, hiddenLayerBuilder.build());
         }
 
-        // we need to use RnnOutputLayer for our RNN
         RnnOutputLayer.Builder outputLayerBuilder = new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT);
-        // softmax normalizes the output neurons, the sum of all outputs is 1
-        // this is required for our sampleFromDistribution-function
+        // normalization all sums to 1 on outp
         outputLayerBuilder.activation(Activation.SOFTMAX);
-        outputLayerBuilder.nIn(NUMHIDDENNODES);
-        outputLayerBuilder.nOut(NUMFINALCLASSES);
-        listBuilder.layer(HIDDEN_LAYER_CONT, outputLayerBuilder.build());
-
-        // finish builder
+        outputLayerBuilder.nIn(HIDDEN_SIZE);
+        outputLayerBuilder.nOut(OUTPUT_SIZE);
+        listBuilder.layer(HIDDEN_LAYER_SIZE, outputLayerBuilder.build());
         listBuilder.pretrain(false);
         listBuilder.backprop(true);
-
-        // create network
-        MultiLayerConfiguration conf = listBuilder.build();
+        //end builder
+        MultiLayerConfiguration conf = listBuilder.build(); //save conf
 
         return conf;
     }

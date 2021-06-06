@@ -11,58 +11,54 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="720.0" prefWidth="1043.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #FFF;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.red.StudentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="736.0" prefWidth="1061.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #23272B;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.red.StudentController">
    <children>
-      <ImageView fx:id="main_icon3" fitHeight="40.0" fitWidth="44.0" layoutX="9.0" layoutY="24.0" onMouseClicked="#info_action3" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/main_icon.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="text_window3" fitHeight="40.0" fitWidth="33.0" layoutX="15.0" layoutY="242.0" onMouseClicked="#text_action3" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/text.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="edit_window3" fitHeight="40.0" fitWidth="33.0" layoutX="13.0" layoutY="321.0" onMouseClicked="#edit_action3" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/edit.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="11.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/student_active.png" />
-         </image>
-      </ImageView>
-      <AnchorPane layoutX="60.0" prefHeight="720.0" prefWidth="985.0" style="-fx-background-color: #E7E7E7;">
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="716.0" prefWidth="1041.0" style="-fx-background-color: #FFF; -fx-background-radius: 20;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
-            <AnchorPane prefHeight="33.0" prefWidth="985.0">
-               <children>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="946.0" layoutY="6.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/close.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="914.0" layoutY="6.0" onMouseClicked="#minimize" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/minimize.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <ScrollPane layoutY="88.0" prefHeight="632.0" prefWidth="985.0">
-               <content>
-                  <FlowPane fx:id="flow" prefHeight="629.0" prefWidth="982.0" />
-               </content>
-            </ScrollPane>
-            <JFXButton layoutX="11.0" layoutY="41.0" onAction="#load_test" prefHeight="33.0" prefWidth="963.0" style="-fx-background-color: #4B6EAF; -fx-background-radius: 20;" text="Load test" textFill="WHITE">
+            <ImageView fx:id="main_icon3" fitHeight="40.0" fitWidth="44.0" layoutX="9.0" layoutY="24.0" onMouseClicked="#info_action3" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/main.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="text_window3" fitHeight="40.0" fitWidth="33.0" layoutX="15.0" layoutY="242.0" onMouseClicked="#text_action3" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/text.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="edit_window3" fitHeight="40.0" fitWidth="33.0" layoutX="13.0" layoutY="321.0" onMouseClicked="#edit_action3" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/edit.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="11.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/student_active1.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="999.0" layoutY="6.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/close.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="968.0" layoutY="6.0" onMouseClicked="#minimize" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/minimize.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="next3" fitHeight="40.0" fitWidth="40.0" layoutX="9.0" layoutY="633.0" onMouseClicked="#next_action3" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/next1.png" />
+               </image>
+            </ImageView>
+            <JFXButton layoutX="66.0" layoutY="56.0" onAction="#load_test" prefHeight="33.0" prefWidth="963.0" style="-fx-background-color: #3C3B41; -fx-background-radius: 20;" text="Load test" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
+            <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="66.0" layoutY="111.0" prefHeight="592.0" prefWidth="963.0" vbarPolicy="NEVER">
+               <content>
+                  <FlowPane fx:id="flow" prefHeight="588.0" prefWidth="960.0" style="-fx-background-color: transparent;" />
+               </content>
+            </ScrollPane>
          </children></AnchorPane>
-      <ImageView fx:id="next3" fitHeight="40.0" fitWidth="40.0" layoutX="9.0" layoutY="633.0" onMouseClicked="#next_action3" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/next.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>
